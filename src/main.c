@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define PROG_SIZE 65536
 #define SKIP if(skip){ip++;break;}
 int main(int argc, char *argv[]){
     FILE *file;
