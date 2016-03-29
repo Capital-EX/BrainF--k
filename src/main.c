@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define PROG_SIZE 4096
 #define SKIP if(skip){ip++;break;}
 int main(int argc, char *argv[]){
     FILE *file;
@@ -13,56 +12,45 @@ int main(int argc, char *argv[]){
             return 0;
         }
     }
-    
-    int *tape = calloc(4096, sizeof(int));
+    int *tape = calloc(PROG_SIZE, sizeof(int));
     int tapePointer = 0;
-    
     int jumpStack[256];
     int jump = -1;
-    
     int skip = 0;
     char prog[PROG_SIZE];
     int ip = 0;
-    
     int c;
     int i = 0;
     while ( (c = fgetc(file)) != EOF ){
         prog[i++] = c;
     }
     prog[i] = '\0';
-    
     while ( ip < PROG_SIZE  && prog[ip] != '\0'){
         switch(prog[ip]){
             case '>': SKIP
                 tapePointer++;
                 ip++;
                 break;
-
             case '<': SKIP
                 tapePointer--;
                 ip++;
                 break;
-
             case '+': SKIP
                 tape[tapePointer]++;
                 ip++;
                 break;
-
             case '-': SKIP
                 tape[tapePointer]--;
                 ip++;
                 break;
-
             case '.': SKIP
                 printf("%c",tape[tapePointer]);
                 ip++;
                 break;
-
             case ',': SKIP
                 tape[tapePointer] = getchar();
                 ip++;
                 break;
-
             case '[':
                 if (tape[tapePointer] == 0){
                     skip++;
@@ -72,7 +60,6 @@ int main(int argc, char *argv[]){
                     ip++;
                 }
                 break;
-
             case ']':
                 if (tape[tapePointer] != 0 && !skip){
                     ip = jumpStack[jump];
@@ -86,7 +73,6 @@ int main(int argc, char *argv[]){
                   
                     ip++;
                 }
-                 
                 break;
             default:
                 ip++;
