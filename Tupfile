@@ -1,0 +1,4 @@
+: src/main.c |> gcc -Wall -c %f -o %o |> bin/%B.o
+: bin/main.o |> gcc %f -o %o |>  bin/main.exe
+: src/main-obfuscated.c |> gcc -Wall -c %f -o %o |> bin/%B.o
+: bin/main-obfuscated.o |> gcc %f -o %o |>  bin/main-obfuscated.exe
